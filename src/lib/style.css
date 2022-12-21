@@ -1,0 +1,14 @@
+
+.grapes-yw-doc_content{
+    max-width: 750px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.grapes-yw-doc_page{
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center
+}
