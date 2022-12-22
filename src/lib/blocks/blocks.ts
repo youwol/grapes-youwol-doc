@@ -33,7 +33,7 @@ export class CoverPageBlock {
     }
 }
 
-export class Blocks {
+export class SimplePageBlock {
     public readonly blockType: string
     public readonly label = 'Simple Page'
     public readonly content
@@ -53,7 +53,7 @@ export class Blocks {
         this.blockType = this.idFactory(SimplePageBlockName)
         this.content = `
 <div class='grapes-yw-doc_page'>
-    <section class='grapes-yw-doc_content' data-gjs-draggable='.row'  data-gjs-type="div" >
+    <section class='grapes-yw-doc_content fv-font-family-regular fv-font-size-regular' data-gjs-type="div" >
     </section>
 </div>`
     }
@@ -81,7 +81,7 @@ export class TextAndAppPageBlock {
 <div class="h-100 w-100 d-flex flex-column">
     <div data-gjs-type="${this.idFactory(TextAppHeaderComponentName)}"></div>
     <div class='grapes-yw-doc_page flex-grow-1'>
-        <section class='grapes-yw-doc_content' data-gjs-type="div" >
+        <section class='grapes-yw-doc_content fv-font-family-regular fv-font-size-regular' data-gjs-type="div" >
         </section>
         <section class='flex-grow-1 grapes-yw-doc_application' data-gjs-type="${this.idFactory(
             AppComponentName,

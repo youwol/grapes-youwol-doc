@@ -1,4 +1,4 @@
-import { CoverPageBlock, Blocks, TextAndAppPageBlock } from './blocks'
+import { CoverPageBlock, SimplePageBlock, TextAndAppPageBlock } from './blocks'
 import {
     CoverPageComponent,
     AppComponent,
@@ -6,7 +6,7 @@ import {
 } from './components'
 
 export function getBlocks() {
-    return [CoverPageBlock, Blocks, TextAndAppPageBlock]
+    return [CoverPageBlock, SimplePageBlock, TextAndAppPageBlock]
 }
 
 export function getComponents() {
