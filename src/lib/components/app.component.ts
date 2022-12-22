@@ -5,7 +5,7 @@ import { setup } from '../../auto-generated'
 import { componentModel, componentParamsEditorView } from './common'
 
 const defaultSrc = `
-return () => ({
+return async () => ({
     url: ''
 })`
 

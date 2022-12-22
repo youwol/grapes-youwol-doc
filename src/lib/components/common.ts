@@ -135,7 +135,7 @@ export function script() {
             rendering: `@youwol/grapes-youwol-doc/rendering_APIv01`,
         },
     }).then(({ rendering }) => {
-        rendering[renderFctTarget]({
+        return rendering[renderFctTarget]({
             parent: this,
             src: src,
         })

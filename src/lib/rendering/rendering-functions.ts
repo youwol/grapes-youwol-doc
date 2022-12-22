@@ -1,14 +1,14 @@
 import { CoverPageView, ErrorView, TextWithAppHeaderView } from './views'
 import { render } from '@youwol/flux-view'
 
-export function renderAppComponent({
+export async function renderAppComponent({
     parent,
     src,
 }: {
     parent: HTMLElement
     src: string
 }) {
-    const { url } = new Function(src)()()
+    const { url } = await new Function(src)()(window)
     if (url == '') {
         const element = document.createElement('div')
         element.innerText = 'Please provide a valid url'
@@ -23,7 +23,7 @@ export function renderAppComponent({
     parent.appendChild(iframe)
 }
 
-export function renderCoverPageComponent({
+export async function renderCoverPageComponent({
     parent,
     src,
 }: {
@@ -40,7 +40,7 @@ export function renderCoverPageComponent({
 
     try {
         const parsedFct = new Function(src)()
-        const obj = parsedFct({ usualNpmGithubCdn })
+        const obj = await parsedFct({ usualNpmGithubCdn, ...window })
         const coverView = new CoverPageView(obj)
         parent.appendChild(render(coverView))
     } catch (e) {
@@ -51,7 +51,7 @@ export function renderCoverPageComponent({
     }
 }
 
-export function renderTextAppHeaderComponent({
+export async function renderTextAppHeaderComponent({
     parent,
 }: {
     parent: HTMLElement
