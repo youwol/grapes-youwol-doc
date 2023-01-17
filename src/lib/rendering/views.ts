@@ -1,76 +1,71 @@
 import { attr$, VirtualDOM } from '@youwol/flux-view'
-import { BehaviorSubject } from 'rxjs'
-
-type Mode = 'dual' | 'text' | 'app'
+import { BehaviorSubject, combineLatest, ReplaySubject } from 'rxjs'
 
 export class TextWithAppHeaderView {
-    public readonly class = 'd-flex justify-content-center'
+    public readonly class = 'd-flex flex-column justify-content-center py-1'
     public readonly children: VirtualDOM[]
-    public readonly selected$: BehaviorSubject<Mode>
+    public readonly selected$: BehaviorSubject<{ text: boolean; app: boolean }>
+    public readonly connectedCallback: (htmlElement: HTMLElement) => void
+    public readonly htmlContainerElement$ = new ReplaySubject<HTMLDivElement>(1)
 
     constructor() {
-        this.selected$ = new BehaviorSubject('dual')
+        this.selected$ = new BehaviorSubject({ text: true, app: true })
         const commonClasses =
             'mx-2 fv-pointer p-2 fv-hover-bg-background fv-text-primary fv-bg-background-alt rounded'
 
-        this.selected$.subscribe((mode) => {
-            const elems = [
-                '.grapes-yw-doc_application',
-                '.grapes-yw-doc_content',
-            ]
-            elems.forEach((selector) => {
-                document.querySelector(selector).classList.add('d-none')
-            })
-            if (mode == 'app') {
-                document.querySelector(elems[0]).classList.remove('d-none')
-            }
-            if (mode == 'dual') {
+        combineLatest([this.selected$, this.htmlContainerElement$]).subscribe(
+            ([mode, container]) => {
+                const elems = [
+                    '.grapes-yw-doc_app_column',
+                    '.grapes-yw-doc_text_column',
+                ]
+
                 elems.forEach((selector) => {
-                    document.querySelector(selector).classList.remove('d-none')
+                    container.querySelector(selector).classList.add('d-none')
                 })
-            }
-            if (mode == 'text') {
-                document.querySelector(elems[1]).classList.remove('d-none')
-            }
-        })
+                if (mode.app) {
+                    container.querySelector(elems[0]).classList.remove('d-none')
+                }
+                if (mode.text) {
+                    container.querySelector(elems[1]).classList.remove('d-none')
+                }
+            },
+        )
         this.children = [
             {
                 class: attr$(
                     this.selected$,
                     (selected): string =>
-                        selected == 'text' ? 'fv-text-focus' : '',
+                        selected.text ? 'fv-text-focus' : '',
                     {
                         wrapper: (d) =>
                             `${d} fas fa-align-justify ${commonClasses}`,
                     },
                 ),
                 onclick: () => {
-                    this.selected$.next('text')
+                    const actual = this.selected$.value
+                    this.selected$.next({ text: !actual.text, app: actual.app })
                 },
             },
             {
                 class: attr$(
                     this.selected$,
-                    (selected): string =>
-                        selected == 'app' ? 'fv-text-focus' : '',
+                    (selected): string => (selected.app ? 'fv-text-focus' : ''),
                     {
                         wrapper: (d) => `${d} fas fa-play ${commonClasses}`,
                     },
                 ),
-                onclick: () => this.selected$.next('app'),
-            },
-            {
-                class: attr$(
-                    this.selected$,
-                    (selected): string =>
-                        selected == 'dual' ? 'fv-text-focus' : '',
-                    {
-                        wrapper: (d) => `${d} fas fa-columns ${commonClasses}`,
-                    },
-                ),
-                onclick: () => this.selected$.next('dual'),
+                onclick: () => {
+                    const actual = this.selected$.value
+                    this.selected$.next({ text: actual.text, app: !actual.app })
+                },
             },
         ]
+        this.connectedCallback = (element: HTMLElement) => {
+            this.htmlContainerElement$.next(
+                element.parentElement.parentElement as HTMLDivElement,
+            )
+        }
     }
 }
 
