@@ -149,7 +149,7 @@ export class SynopsisView implements VirtualDOM {
 
 export class CoverPageView implements VirtualDOM {
     public readonly class =
-        'w-100 h-100 d-flex flex-column text-center grapes-yw-doc_page'
+        'w-100 h-100 text-center grapes-yw-doc_page overflow-auto'
     public readonly children: VirtualDOM[]
     constructor(params: {
         title: string
@@ -163,7 +163,7 @@ export class CoverPageView implements VirtualDOM {
         Object.assign(this, params)
         this.children = [
             {
-                class: 'flex-grow-1 d-flex flex-column justify-content-around grapes-yw-doc_content mx-auto',
+                class: 'd-flex flex-column justify-content-around grapes-yw-doc_content mx-auto',
                 children: [
                     new TitleView(params),
                     params.synopsis && new SynopsisView(params),

@@ -52,8 +52,8 @@ export class SimplePageBlock {
         Object.assign(this, params)
         this.blockType = this.idFactory(SimplePageBlockName)
         this.content = `
-<div class='grapes-yw-doc_page'>
-    <section class='grapes-yw-doc_content fv-font-family-regular fv-font-size-regular' data-gjs-type="div" >
+<div class='grapes-yw-doc_page overflow-auto'>
+    <section class='grapes-yw-doc_content fv-font-family-regular' data-gjs-type="div" >
     </section>
 </div>`
     }
@@ -78,17 +78,21 @@ export class TextAndAppPageBlock {
         Object.assign(this, params)
         this.blockType = this.idFactory(TextAndAppBlockName)
         this.content = `
-<div class="h-100 w-100 d-flex flex-column">
-    <div data-gjs-type="${this.idFactory(TextAppHeaderComponentName)}"></div>
-    <div class='grapes-yw-doc_page flex-grow-1'>
-        <section class='grapes-yw-doc_content fv-font-family-regular fv-font-size-regular' data-gjs-type="div" >
-        </section>
-        <section class='flex-grow-1 grapes-yw-doc_application' data-gjs-type="${this.idFactory(
-            AppComponentName,
-        )}" >
-        </section>
+    <div class='h-100 w-100 grapes-yw-doc_page grapes-yw-doc_text-app-page-block'>
+        <div class="w-50 h-100 grapes-yw-doc_text_column overflow-auto">                
+            <div class='grapes-yw-doc_content fv-font-family-regular' data-gjs-type="div">
+            </div>
+        </div>
+        <div data-gjs-type="${this.idFactory(
+            TextAppHeaderComponentName,
+        )}"></div>
+        <div class="flex-grow-1 h-100 grapes-yw-doc_app_column">                
+            <div class='w-100 h-100 grapes-yw-doc_application' data-gjs-type="${this.idFactory(
+                AppComponentName,
+            )}" >
+            </div>
+        </div>
     </div>
-</div>
 `
     }
 }
