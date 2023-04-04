@@ -8,6 +8,7 @@ import {
     TextAndAppBlockName,
     TextAppHeaderComponentName,
 } from '../constants'
+import { setup } from '../../auto-generated'
 
 export class CoverPageBlock {
     public readonly blockType: string
@@ -52,6 +53,8 @@ export class SimplePageBlock {
         Object.assign(this, params)
         this.blockType = this.idFactory(SimplePageBlockName)
         this.content = `
+<link href="/api/assets-gateway/raw/package/${setup.assetId}/${setup.version}/src/lib/style.css" 
+rel="stylesheet">
 <div class='grapes-yw-doc_page overflow-auto'>
     <section class='grapes-yw-doc_content fv-font-family-regular' data-gjs-type="div" >
     </section>
