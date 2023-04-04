@@ -63,7 +63,7 @@ const entries = {
 export const setup = {
     name:'@youwol/grapes-youwol-doc',
         assetId:'QHlvdXdvbC9ncmFwZXMteW91d29sLWRvYw==',
-    version:'0.1.0-wip',
+    version:'0.1.1',
     shortDescription:"Plugins to write documentation for YouWol with the @youwol/stories application.",
     developerDocumentation:'https://platform.youwol.com/applications/@youwol/cdn-explorer/latest?package=@youwol/grapes-youwol-doc',
     npmPackage:'https://www.npmjs.com/package/@youwol/grapes-youwol-doc',
@@ -109,7 +109,7 @@ export const setup = {
         const parameters = installParameters || {}
         const scripts = [
             ...(parameters.scripts || []),
-            `@youwol/grapes-youwol-doc#0.1.0-wip~dist/@youwol/grapes-youwol-doc/${entry.name}.js`
+            `@youwol/grapes-youwol-doc#0.1.1~dist/@youwol/grapes-youwol-doc/${entry.name}.js`
         ]
         const modules = [
             ...(parameters.modules || []),
